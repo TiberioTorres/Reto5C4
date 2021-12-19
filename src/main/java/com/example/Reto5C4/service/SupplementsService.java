@@ -92,22 +92,23 @@ public class SupplementsService {
         return  supplementsRepository.findByPrice(price);
     }
     
-    public List <Supplements> findByDescription (String description){
+    private boolean checkStrings(String string1, String string2) {
+        return string1.indexOf(string2)>=0;
+    }
+    
+    public List <Supplements> findByDescription (String description2){
         List <Supplements> suplementos = supplementsRepository.getAll();
         ArrayList<Supplements> suplementos2 = new ArrayList();
         for(Supplements suplemento: suplementos){
-            String descripcion = suplemento.getDescription();
-            int j = 0;
-            for(int i = 0; i < descripcion.length(); i++){
-                char caracter = descripcion.charAt(i);
-               
-                if(caracter==description.charAt(j)){
-                    
-                }
+            String descripcion1 = suplemento.getDescription();
+            
+            if (checkStrings(descripcion1, description2)) {
+                suplementos2.add(suplemento);
             }
             
         }
-        return suplementos2;
+        
+        return (List<Supplements>) suplementos2;
     }
 
 }
